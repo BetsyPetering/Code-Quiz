@@ -1,5 +1,7 @@
 
 var current = 0;
+var sayCorrect = "Correct";
+var score = 0;
 
 const startButton = document.getElementById('start-btn')
 const questionElement = document.getElementById('question')
@@ -27,11 +29,11 @@ function startClock() {
         var timerInterval = setInterval(
         function() {
             secondsLeft--;
-            timeEl.textContent = secondsLeft ;
+            timeEl.textContent = secondsLeft;
     
             if(secondsLeft === 0) {
             clearInterval(timerInterval);
-            noTimeLeft();
+            lose();
             }
         }
         , 1000);
@@ -41,49 +43,99 @@ function startClock() {
 }
 
 function checkAnswer(answerChoice) {
-
         //check if anwer is correct
     if (questions[current].choices[answerChoice] === questions[current].answer) {
-        //TODO: show "correct" on screen 
+        sayCorrect = "Correct"; //Flash "Correct" on screen for 1 second
     }
     else {
-        // TODO: show "incorrect" on screen, subtract 15 second from the clock and move to next question
-
+        // TODO:  subtract 15 second from the clock
+        sayCorrect = "Incorrect";
+        //Flash "Incorrect" on screen for 1 second
     }
-          nextQuestion()
-}
+    nextQuestion()
+    }
 
 function nextQuestion() {
-    //check array to see if there is another question
-    if (current < questions.length) {
-        questionElement.innerText = questions[current].title;
-        answerA.innerText = questions[current].choices[0];
-        answerB.innerText = questions[current].choices[1];
-        answerC.innerText = questions[current].choices[2];
-        answerD.innerText = questions[current].choices[3];
-        current++;
+    //is there time left?
+    if(secondsLeft > 0){
+        //check array to see if there is another question
+        if (current < questions.length) {
+            questionElement.innerText = questions[current].title;
+            answerA.innerText = questions[current].choices[0];
+            answerB.innerText = questions[current].choices[1];
+            answerC.innerText = questions[current].choices[2];
+            answerD.innerText = questions[current].choices[3];
+            current++;
+            //clear old question and put up new question and answers
+         } 
+        else {
+            win()
+        }
     }
     else {
-        noQuestions()
+        lose()
     }
-
-    //if no questions, go to noQuestions
-    //else clear display and put up new question
 }
 
-function noQuestions() {
-    //if answer all questions, show you won, the score
-    //then take them to the screen to put in their initials
-    //store initials with the score in the LocalStorate
+function win() {
+    //This is the winning function
+    //Clear questions and answers.     
+    score = secondsLeft;  //score is just the seconds remaining
+    //ask them to put in their initials and join the top scorers 
+    addName();
+    startGame();
+}
+    //store initials with the score in the LocalStorage
+
+function renderUsers() {
+// Render a new li for each user and their score
+    for (var i = 0; i < userList.length; i++) {
+        var rUser = userList[i].user;
+        var rScore = userList[i].score;
+
+        var li = document.createElement("li");
+        li.textContent =rUser;
+        var ls = document.createElement("ls");
+        ls.textContent =rScore;
+        userList[i].user.appendChild(li);
+        userList[i].score.appendChild(ls);
+    }
+}
+//Once the current high scorers are listed, ask the user to add their inits
+//TODO How Does This Get Asked?
+function addName(){
+    userForm.addEventListener("submit", function(event) {
+        event.preventDefault();    
+        var userText = userInput.value.trim();        
+        // Return from function early if submitted userText is blank
+        if (userText === "") {
+            return;
+        }
+        // Add new userText to users array, clear the input
+        userList[i].user.push(userText);
+        userList[i].score.push(score);
+        userInput.value = "";      
+        // Render the list
+        renderUsers();
+        });
 }
 
-function noTimeLeft() {
-    //if time runs out, then the person has lost, tell them so
+// set new submission
+localStorage.setItem("player", JSON.stringify(player));
+    
+// get most recent submission
+var lastUser = JSON.parse(localStorage.getItem("user"));
+userFirstNameSpan.textContent = lastUser.firstName;
+userLastNameSpan.textContent = lastUser.lastName;
+userEmailSpan.textContent = lastUser.email;
+userPasswordSpan.textContent = lastUser.password;
+
+function lose() {
+    //Display "You Lost" 
+    startGame();
 }
 
 
-
-//--------------------------------------------------------
 //this function puts up the first question
 function startGame() {
     console.log('Started')
@@ -93,10 +145,11 @@ function startGame() {
     setNextQuestion()
 }
 
-function setNextQuestion() {
+//--------------------------------------------------------
+// function setNextQuestion() {
     //test to see if there is a next question, if not go to WIN funciton
     //if there is a new question, pull it and go to showQuestions
-}
+// }
 
 // function showQuestions(question) {
 //     questionElement.innerText = question.question
