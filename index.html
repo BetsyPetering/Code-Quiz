@@ -25,43 +25,52 @@
     <header>
         <h1>Coding Quiz</h1>
     </header>
-    <div class="container">
+    <div class="container" id="container">
         <div class="row">
             <div class="column-8">
                 <div class="clock">
-                    <span id="timeTitle">Time: </span>
+                    <span id="timeTitle">Countdown: </span>
                     <span id="timeLeft"></span>
                 </div>
-                <div id="question-container" class="hide">
+                <div class="question">
                     <div id="question">Questions will show up here with 4 possible answers:</div>
-                    <div id="answer-buttons" class="btn-grid">
-                        <button class="btn" id="answerA">Answer 1</button>
-                        <button class="btn" id="answerB">Answer 2</button>
-                    </div>
-                        <div id="answer-buttons" class="btn-grid">   
-                        <button class="btn" id="answerC">Answer 3</button>
-                        <button class="btn" id="answerD">Answer 4</button>
-                    </div>
+                </div>
+                <div id="answer-buttons" class="btn-grid">
+                    <button class="btn" id="answerA">Answer 1</button>
+                    <button class="btn" id="answerB">Answer 2</button>
+                </div>
+                <div id="answer-buttons" class="btn-grid">
+                    <button class="btn" id="answerC">Answer 3</button>
+                    <button class="btn" id="answerD">Answer 4</button>
                 </div>
             </div>
         </div>
         <div class="row">
-        <div class="column-4">
-            <div class="score">
-                <span id="score"></span>
-            </div>
-            <div class="correct">
-                <!--Put The "Correct" or "Incorrect" button here
+            <div class="column-4">
+                <div class="score">
+                    <span id="score"></span>
+                </div>
+                <div class="correct">
+                    <span id="right"> Correct </span>
+                    <!--Put The "Correct" or "Incorrect" button here
             Display for 1 second, make red for Incorrect and Green for Correct-->
-            </div>
-            <div class="controls">
-                <button id="start-btn" class="extra" class="start-btn btn">Begin Quiz</button>
-            </div>
-            <div class="controls">
-                <button id="highScore-btn" class="extra" class="score-btn btn">Show High Scores?</button>
+                </div>
+                <div class="controls">
+                    <button id="start-btn" class="extra" class="start-btn btn">Begin Quiz</button>
+                </div>
+                <div class="controls">
+                    <button id="highScore-btn" class="extra" class="score-btn btn">Show High Scores?</button>
+                </div>
             </div>
         </div>
     </div>
+    <div id="containerHighScores">
+        <h2>Enter Your Initials</h2>
+            <!--Name box-->    
+            <div class="inputInit">            
+                <input type="text" id="initials">
+            </div>
+        </div>
     </div>
     <script src="Assets/questions.js"></script>
     <script src="Assets/script.js"></script>

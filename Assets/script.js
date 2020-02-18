@@ -1,48 +1,77 @@
 
-var current = 0;
+var current = 0; //set index to 0
 var sayCorrect = "Correct";
 var score = 0;
-
+var userList = [];
+var checkChoice = []; //set checkChoice as an array
 const startButton = document.getElementById('start-btn')
 const questionElement = document.getElementById('question')
 const highScore = document.getElementById('highScore-btn')
+var containerHighScores = document.getElementById('containerHighScores')
+var container = document.getElementById('container')
 var answerA = document.getElementById('answerA')
 var answerB = document.getElementById('answerB')
 var answerC = document.getElementById('answerC')
 var answerD = document.getElementById('answerD')
 
-startButton.addEventListener('click', startClock)
+answerA.addEventListener('click',checkAnswer(0)) //checkChoice is not defined
+answerB.addEventListener('click',checkAnswer(1))//what was this intended to be?
+answerC.addEventListener('click',checkAnswer(2))//needs to say "this is which answer
+answerD.addEventListener('click',checkAnswer(3))//was chosen"
+
+var secondsLeft = 0; //initialize secondsLeft as 0 - should be set to 75 as
+                                    //game begins
+var currentSelection = false;  //set this to false so it will check the choice and 
+                                                  //determine if answer is true or false - checkAnswer()
+
+startButton.addEventListener('click', clock) //can I set var secondsLeft = 75 here?
+                                                                       //what does "clock" do here?
 highScore.addEventListener('click', highScore)
 
-answerA.addEventListener('click',checkAnswer(0))
-answerB.addEventListener('click',checkAnswer(1))
-answerC.addEventListener('click',checkAnswer(2))
-answerD.addEventListener('click',checkAnswer(3))
+containerHighScores.setAttribute('class', 'hide')
 
-function startClock() {
-    
+
+//this function begins the game, sets index to 0
+function startGame() {
+    console.log('Started')
+    startButton.classList.add('hide') //this was not working
+    current = 0  //question index
+    questionElement.classList.remove('hide')
+    // secondsLeft = 75;  set this to 75 before this function is called? 
+    secondsLeft = 75;
+    clock()
+}
+
+//begins the timer and goes to the nextQuestion (the first one)
+//how do I come here to deduct 15 seconds when answered incorrectly?
+function clock() {
+    console.log("before check for wrong answer " + secondsLeft);
+    if (currentSelection === true) {
+        secondsLeft = secondsLeft - 15;  
+        console.log("when answer wrong " + secondsLeft);
+    }
+        //subtract 15  from secondsLeft and continue
+        //where does this go?
     var timeEl = document.querySelector(".time");
-    var secondsLeft = 75;
-       
-    //TODO find code error
-    function setTime() {
+   
         var timerInterval = setInterval(
         function() {
             secondsLeft--;
-            timeEl.textContent = secondsLeft;
+            console.log('after secondsLeft-- ' + secondsLeft)
+            timeEl.innerText = secondsLeft;
     
-            if(secondsLeft === 0) {
+            if(secondsLeft <= 0) {
             clearInterval(timerInterval);
             lose();
             }
         }
-        , 1000);
-    }
-    
+        , 1000);    
     nextQuestion()
 }
 
-function checkAnswer(answerChoice) {
+//check the answer chosen against the question's answer
+//TODO answerChoice is coming up as undefined
+function checkAnswer(currentSelection) {    
         //check if anwer is correct
     if (questions[current].choices[answerChoice] === questions[current].answer) {
         sayCorrect = "Correct"; //Flash "Correct" on screen for 1 second
@@ -50,10 +79,11 @@ function checkAnswer(answerChoice) {
     else {
         // TODO:  subtract 15 second from the clock
         sayCorrect = "Incorrect";
+        currentSelection = true;
         //Flash "Incorrect" on screen for 1 second
     }
     nextQuestion()
-    }
+}
 
 function nextQuestion() {
     //is there time left?
@@ -104,8 +134,9 @@ function renderUsers() {
 //Once the current high scorers are listed, ask the user to add their inits
 //TODO How Does This Get Asked?
 function addName(){
-    userForm.addEventListener("submit", function(event) {
         event.preventDefault();    
+        containerHighScores.removeAttribute;
+        container.setAttribute("class","hide");//'hide' is from css - display none
         var userText = userInput.value.trim();        
         // Return from function early if submitted userText is blank
         if (userText === "") {
@@ -113,22 +144,19 @@ function addName(){
         }
         // Add new userText to users array, clear the input
         userList[i].user.push(userText);
-        userList[i].score.push(score);
+        userListscore.push(score);
         userInput.value = "";      
         // Render the list
         renderUsers();
-        });
-}
+        }
 
 // set new submission
-localStorage.setItem("player", JSON.stringify(player));
+// localStorage.setItem("player", JSON.stringify(player));
     
 // get most recent submission
-var lastUser = JSON.parse(localStorage.getItem("user"));
-userFirstNameSpan.textContent = lastUser.firstName;
-userLastNameSpan.textContent = lastUser.lastName;
-userEmailSpan.textContent = lastUser.email;
-userPasswordSpan.textContent = lastUser.password;
+// var lastUser = JSON.parse(localStorage.getItem("user"));
+// user.textContent = lastUser.firstName;
+// userinitSpan.textContent = lastUser.password;
 
 function lose() {
     //Display "You Lost" 
@@ -136,16 +164,7 @@ function lose() {
 }
 
 
-//this function puts up the first question
-function startGame() {
-    console.log('Started')
-    startButton.classList.add('hide') //this was not working
-    currentQuestionIndex = 0
-    questionContainerElement.classList.remove('hide')
-    setNextQuestion()
-}
-
-//--------------------------------------------------------
+//----------HERE DOWN IS COMMENTED OUT----------------
 // function setNextQuestion() {
     //test to see if there is a next question, if not go to WIN funciton
     //if there is a new question, pull it and go to showQuestions

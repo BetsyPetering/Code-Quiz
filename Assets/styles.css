@@ -19,14 +19,21 @@ header {
     padding: .75rem 0;
 }
 
-#question {
+.clock {
+    background: rgb(221, 68, 68);
+    color: rgb(250, 250, 208);
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.question {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: .5rem 0;
     font-size: medium;
     background-color: rgb(4, 22, 4);
     color: rgb(247, 243, 243);
     text-align: center;
-    width: 50%;
 }
 
 .btn {
@@ -52,6 +59,10 @@ header {
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
+}
+
+.hide {
+    display: none;
 }
 
 .extra {
