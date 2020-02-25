@@ -1,22 +1,25 @@
-.container {
-    width: 100vw;
-    height: 100 vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 80rem;
-    margin: 0 auto;
-    font-size: 2rem;
-    padding: .5rem;
+*, *::before, *::after {
+    box-sizing: border-box;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-header {
-    background: rgb(29, 28, 28);
-    color: rgb(228, 219, 182);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-align: center;
-    padding: .75rem 0;
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 800px;
+    max-width: 80%;
+    background-color: #eee;
+    border-radius: 5px;
+    padding: .5rem;
+    box-shadow: 0 0 10px 2px;
 }
 
 .clock {
@@ -24,28 +27,35 @@ header {
     color: rgb(250, 250, 208);
     font-size: 1.5rem;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
-.question {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+#question {
     padding: .5rem 0;
-    font-size: medium;
-    background-color: rgb(4, 22, 4);
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    background-color: rgb(219, 143, 2);
     color: rgb(247, 243, 243);
     text-align: center;
 }
 
+.btn-grid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px;
+    margin: 20px 0;
+    background-color: lightgray;
+}
+
 .btn {
     font-size: 1rem;
-    padding: 1rem 0;
-    width: 20rem;
+    padding: 10px 10px;
     text-align: center;
-    border: 0.1rem solid #4947d8;
+    align-items: center;
+    border: 0.1rem solid darkblue;
     margin-bottom: 1.rem;
     text-decoration: none;
-    color: #4947d8;
-    background-color: #eee;
+    color: darkblue;
+    background-color: lightskyblue;
 }
 
 .btn:hover {
@@ -61,19 +71,21 @@ header {
     transform: none;
 }
 
-.hide {
-    display: none;
-}
-
-.extra {
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 1.5rem;
-    padding: 1rem 0;
-    margin: 0 0 2rem 4rem;
-    width: 15rem;
-    text-align: center;
+    font-weight: bold;
+    padding: 10px 20px;
     border: 0.1rem solid rgb(253, 215, 64);
     margin-bottom: 1.rem;
     text-decoration: none;
     color: rgb(17, 16, 16);
     background-color: cornsilk;
 }
+
+.hide {
+    display: none;
+}
+
