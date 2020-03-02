@@ -9,5 +9,19 @@ var questions = [
       choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
       answer: "parentheses"
     },
-    ///etc.
+    {
+      title: "In 'function(thisThing)', thisThing is called a:",
+      choices: ["parameter", "variable", "object", "array"],
+      answer: "parameter"
+    },
+    {
+      title: "Valid declarative statements include var, let, and:",
+      choices: ["variables", "constr", "objects", "const"],
+      answer: "const"
+    },
+    {
+      title: "An example of Camel case is:",
+      choices: ["caMelcaSe", "camelluGGaGe", "camelCigarettes", "caMelHuMp"],
+      answer: "camelCigarettes"
+    }
   ];

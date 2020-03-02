@@ -22,7 +22,7 @@ body {
     box-shadow: 0 0 10px 2px;
 }
 
-.clock {
+#clock {
     background: rgb(221, 68, 68);
     color: rgb(250, 250, 208);
     font-size: 1.5rem;
@@ -36,6 +36,24 @@ body {
     background-color: rgb(219, 143, 2);
     color: rgb(247, 243, 243);
     text-align: center;
+}
+
+#initials {
+    padding: .5rem 0;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    background-color: rgb(2, 71, 219);
+    color: rgb(247, 243, 243);
+    text-align: center;
+}
+
+#winner {
+    color: rgb(2,71,219);
+    background-color: rgb(247, 243, 243);
+    font-size: 1.5rem;
+    margin: 2px;
+    width: 3rem;
+    overflow: hidden;
 }
 
 .btn-grid {

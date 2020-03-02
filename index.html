@@ -11,10 +11,11 @@
 </head>
 
 <body>
-    <div class="container" id="container">
-        <div class="clock">
-            <span id="timeTitle">Countdown: </span>
-            <h2 id="timer" class="time"></h2>
+    <div class="container">
+        <div id="clock">
+            <span>Countdown: </span>
+            <h2 id="timer"></h2>
+            <h2>Seconds</h2>
             <h3 id="status"></h3>
         </div>
         <div id="question-container" class="hide">
@@ -25,9 +26,20 @@
             <button class="btn" id="answerB" onclick="checkAnswer(1)">Answer 2</button>
             <button class="btn" id="answerC" onclick="checkAnswer(2)">Answer 3</button>
             <button class="btn" id="answerD" onclick="checkAnswer(3)">Answer 4</button>
-        </div>            
-        <div class="score">
-            <span id="score"></span>
+        </div>         
+        <div id="initials" class="hide">
+            <div>
+                <h2>Enter Your Initials</h2>               
+                <div class="input-group">
+                <input type="text" name="winner" id="winner" maxlength="4" />
+                </div>
+                <button id="add-btn" class="btn">Add Person</button>
+            </div>   
+        </div>
+        <div class="card hide">
+            <h2>Winners</h2>
+            <p><strong>Name</strong> 
+                    <span id="winner"></span></p>
         </div>
         <div class="correct">
             <span id="right" class="hide"> Correct </span>
@@ -38,13 +50,11 @@
             <button id="start-btn" class="start-btn btn">Begin Quiz</button>                
             <button id="highScore-btn" class="score-btn btn">Show High Scores?</button>
         </div>
-    </div>
-    <div id="containerHighScores" class="hide">
-        <h2>Enter Your Initials</h2>
-            <!--Name box-->    
-            <div class="inputInit">            
-                <input type="text" id="initials">
-            </div>
+        <div id="win-list" class="hide">
+            <ul>
+                <h3>Winners</h3>
+                <li><span id="name"></span><span id="score"></span></li>
+            </ul>
         </div>
     </div>
 
