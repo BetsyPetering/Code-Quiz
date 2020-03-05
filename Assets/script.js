@@ -1,33 +1,28 @@
 var current = 0; //set question index to 0
 var timer;
 var time = 75;
-var name;
-var score;
-var initialsEl = document.querySelector("#winner").value;
-if (initialsEl === null) {
-  initialsEl = "Be the First!";
-}
+var winners = [];
+var winList = document.querySelector("#winList");
 
-var highScoreName = document.querySelector("#name");
-var highScoreNum = document.querySelector("#score");
-const status = document.getElementById("status");
 const startButton = document.getElementById("start-btn");
-const questionElement = document.getElementById("question");
-const answerButtonsElement = document.getElementById("answer-buttons");
-const highScore = document.getElementById("highScore-btn");
 const keepInitials = document.getElementById("add-btn");
+const highScore = document.getElementById("highScore-btn");
+const status = document.getElementById("status");
+const winnerGrid = document.getElementById("win-list");
 const initialsElement = document.getElementById("initials");
 const clockElement = document.getElementById("clock");
 const timerElement = document.getElementById("timer");
 const questionContainerElement = document.getElementById("question-container");
+const questionElement = document.getElementById("question");
+const answerButtonsElement = document.getElementById("answer-buttons");
 const answerA = document.getElementById("answerA");
 const answerB = document.getElementById("answerB");
 const answerC = document.getElementById("answerC");
 const answerD = document.getElementById("answerD");
 
 startButton.addEventListener("click", startGame);
+keepInitials.addEventListener("click", addInitials);
 highScore.addEventListener("click", showScores);
-keepInitials.addEventListener("click", restart);
 
 function startGame() {
   initialsElement.classList.add("hide");
@@ -49,15 +44,44 @@ function countDown() {
   }
 }
 
-function showScores() {
-  console.log("inside showScore");
-  highScore.classList.remove("hide");
-  highScoreName.innerText = localStorage.getItem("name");
-  highScoreNum.innerText = localStorage.getItem("score");
+function showScores() {   
+  startButton.classList.add("hide");
+  clockElement.classList.add("hide");
+  initialsElement.classList.add("hide");
+  winnerGrid.classList.remove("hide");
+
+  winners = JSON.parse(localStorage.getItem("winners"));
+  
+  for(i = 0; i < winners.length; i++) {
+      var name =winners[i].name;
+      var score = winners[i].score;      
+      var li = document.createElement("li");
+      li.textContent = name + "    " + score;
+      li.setAttribute("winIndex", i);
+      winList.appendChild(li);
+    }   
+    setTimeout(function() {
+        winnerGrid.classList.add("hide");        
+      }, 4000);      
   restart();
 }
 
-// //the function to put a new questions up
+function addInitials() {
+    clockElement.classList.add("hide");
+    winnerGrid.classList.remove("hide");
+    initialsElement.classList.remove("hide");
+
+    getInitials = document.querySelector("#winner").value;
+    winners.push({name: getInitials, score: time});
+    console.log(winners);
+    localStorage.setItem("winners", JSON.stringify(winners));
+
+    setTimeout(function() {
+        winnerGrid.classList.add("hide");        
+      }, 4000);  //show initials and score for 4 seconds
+      restart();
+  }
+  
 function nextQuestion() {
   questionElement.innerText = questions[current].title;
   answerA.innerText = questions[current].choices[0];
@@ -67,10 +91,9 @@ function nextQuestion() {
   status.innerText = "";
 }
 
-//this is run when an answer is chosen
 function checkAnswer(index) {
-  var chosen = index; //chosen answer's index
-  var x = current; //questions' index
+  var chosen = index; 
+  var x = current; 
   if (questions[x].choices[chosen] === questions[x].answer) {
     correct();
   } else {
@@ -81,7 +104,7 @@ function checkAnswer(index) {
 
 function correct() {
   setTimeout(function() {
-    status.innerText = "CORRECT, Yessssss";
+    status.innerText = "CORRECT, Yesss";
   }, 1000);
   current++;
   more();
@@ -89,7 +112,7 @@ function correct() {
 
 function incorrect() {
   setTimeout(function() {
-    status.innerText = "WRONG, Too Bad";
+    status.innerText = "WRONG, So sad";
   }, 1000);
   current++;
   more();
@@ -103,7 +126,6 @@ function more() {
       win();
     }
   } else {
-    console.log("in more with time <= 0");
     lose();
   }
 }
@@ -116,7 +138,7 @@ function win() {
   clearInterval(timer);
   questionContainerElement.classList.add("hide");
   answerButtonsElement.classList.add("hide");
-  addInitials();
+  initialsElement.classList.remove("hide");
 }
 
 function lose() {
@@ -130,20 +152,10 @@ function lose() {
   restart();
 }
 
-function addInitials() {
-  clockElement.classList.add("hide");
-  initialsElement.classList.remove("hide");
-  localStorage.setItem("name", initialsEl);
-  localStorage.setItem("score", time);
-  highScoreName.textContent = initialsEl;
-  highScoreNum.textContent = score;
-  startButton.classList.remove("hide");
-  clockElement.classList.remove("hide");
-}
-
 function restart() {
   initialsElement.classList.add("hide");
   time = 75;
   startButton.classList.remove("hide");
   highScore.classList.remove("hide");
+  clockElement.classList.remove("hide");
 }
