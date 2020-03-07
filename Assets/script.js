@@ -44,25 +44,25 @@ function countDown() {
   }
 }
 
-function showScores() {   
   startButton.classList.add("hide");
   clockElement.classList.add("hide");
   initialsElement.classList.add("hide");
   winnerGrid.classList.remove("hide");
 
+  winList.innerHTML = "";
   winners = JSON.parse(localStorage.getItem("winners"));
   
   for(i = 0; i < winners.length; i++) {
       var name =winners[i].name;
       var score = winners[i].score;      
       var li = document.createElement("li");
-      li.textContent = name + "    " + score;
+      li.innerText = name + "    " + score;
       li.setAttribute("winIndex", i);
-      winList.appendChild(li);
-    }   
+      winList.appendChild(li);       
     setTimeout(function() {
-        winnerGrid.classList.add("hide");        
-      }, 4000);      
+        winnerGrid.classList.add("hide");
+      }, 4000);  
+      
   restart();
 }
 
@@ -72,15 +72,16 @@ function addInitials() {
     initialsElement.classList.remove("hide");
 
     getInitials = document.querySelector("#winner").value;
-    winners.push({name: getInitials, score: time});
+    winners.push(name: getInitials, score: time);
     console.log(winners);
     localStorage.setItem("winners", JSON.stringify(winners));
-
+    
     setTimeout(function() {
         winnerGrid.classList.add("hide");        
-      }, 4000);  //show initials and score for 4 seconds
+      }, 4000);  
       restart();
   }
+
   
 function nextQuestion() {
   questionElement.innerText = questions[current].title;
